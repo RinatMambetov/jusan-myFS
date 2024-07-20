@@ -19,6 +19,8 @@ public class Shell {
                 } else if (splitCommand.length == 2) {
                     if (splitCommand[0].equals("ls")) {
                         MyFile.listDirectory(splitCommand[1]);
+                    } else if (splitCommand[0].equals("ls_py")) {
+                        MyFile.listPythonFiles(splitCommand[1]);
                     } else {
                         System.out.println("Wrong command, use help");
                     }
