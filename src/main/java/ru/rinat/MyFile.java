@@ -45,13 +45,39 @@ public class MyFile {
         File directoryPath = new File(path);
         if (directoryPath.exists()) {
             if (directoryPath.isDirectory()) {
-                System.out.println("директория");
+                System.out.println("directory");
             } else if (directoryPath.isFile()) {
-                System.out.println("файл");
+                System.out.println("file");
             }
         } else {
             System.out.println("Wrong path");
         }
     }
 
+    public static void printPermissions(String path) {
+        File directoryPath = new File(path);
+        if (directoryPath.exists()) {
+            boolean canRead = directoryPath.canRead();
+            boolean canWrite = directoryPath.canWrite();
+            boolean canExecute = directoryPath.canExecute();
+            if (canRead) {
+                System.out.print("r");
+            } else {
+                System.out.print("-");
+            }
+            if (canWrite) {
+                System.out.print("w");
+            } else {
+                System.out.print("-");
+            }
+            if (canExecute) {
+                System.out.print("x");
+            } else {
+                System.out.print("-");
+            }
+            System.out.println();
+        } else {
+            System.out.println("Wrong path");
+        }
+    }
 }

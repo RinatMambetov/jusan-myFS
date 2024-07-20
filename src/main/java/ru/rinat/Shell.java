@@ -22,6 +22,7 @@ public class Shell {
                         case "ls_py" -> MyFile.listPythonFiles(splitCommand[1]);
                         case "is_dir" -> MyFile.isDirectory(splitCommand[1]);
                         case "define" -> MyFile.define(splitCommand[1]);
+                        case "readmod" -> MyFile.printPermissions(splitCommand[1]);
                         default -> System.out.println("Wrong command, use help");
                     }
                 } else {
