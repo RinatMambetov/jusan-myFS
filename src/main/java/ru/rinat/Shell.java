@@ -17,14 +17,12 @@ public class Shell {
                         System.out.println("Wrong command, use help");
                     }
                 } else if (splitCommand.length == 2) {
-                    if (splitCommand[0].equals("ls")) {
-                        MyFile.listDirectory(splitCommand[1]);
-                    } else if (splitCommand[0].equals("ls_py")) {
-                        MyFile.listPythonFiles(splitCommand[1]);
-                    } else if (splitCommand[0].equals("is_dir")) {
-                        MyFile.isDirectory(splitCommand[1]);
-                    } else {
-                        System.out.println("Wrong command, use help");
+                    switch (splitCommand[0]) {
+                        case "ls" -> MyFile.listDirectory(splitCommand[1]);
+                        case "ls_py" -> MyFile.listPythonFiles(splitCommand[1]);
+                        case "is_dir" -> MyFile.isDirectory(splitCommand[1]);
+                        case "define" -> MyFile.define(splitCommand[1]);
+                        default -> System.out.println("Wrong command, use help");
                     }
                 } else {
                     System.out.println("Wrong command, use help");
