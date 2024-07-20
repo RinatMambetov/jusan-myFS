@@ -15,4 +15,16 @@ public class MyFile {
         }
         System.out.println();
     }
+    
+    public static void listPythonFiles(String path) {
+        File directoryPath = new File(path);
+        if (directoryPath.exists() && directoryPath.isDirectory()) {
+            Arrays.stream(Objects.requireNonNull(directoryPath.listFiles()))
+                    .filter(elem -> elem.getName().endsWith(".py"))
+                    .map(elem -> elem.getName() + " ").forEach(System.out::print);
+        } else {
+            System.out.print("Directory does not exist");
+        }
+        System.out.println();
+    }
 }
