@@ -8,7 +8,7 @@ class MyFile {
 public static void listDirectory(String path) {...};
 // выводит список файлов с расширением `.py` в `path` - ls_py
 public static void listPythonFiles(String path) {...};
-// выводит `true`, если `path` это директория, в других случаях `false` - id_dir
+// выводит `true`, если `path` это директория, в других случаях `false` - is_dir
 public static void isDirectory(String path) {...};
 // выводит `директория` или `файл` в зависимости от типа `path` - define
 public static void define(String path) {...};

@@ -15,7 +15,7 @@ public class MyFile {
         }
         System.out.println();
     }
-    
+
     public static void listPythonFiles(String path) {
         File directoryPath = new File(path);
         if (directoryPath.exists() && directoryPath.isDirectory()) {
@@ -26,5 +26,14 @@ public class MyFile {
             System.out.print("Directory does not exist");
         }
         System.out.println();
+    }
+
+    public static void isDirectory(String path) {
+        File directoryPath = new File(path);
+        if (directoryPath.exists() && directoryPath.isDirectory()) {
+            System.out.println("true");
+        } else {
+            System.out.println("false");
+        }
     }
 }
