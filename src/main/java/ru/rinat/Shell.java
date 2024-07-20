@@ -18,11 +18,13 @@ public class Shell {
                     }
                 } else if (splitCommand.length == 2) {
                     switch (splitCommand[0]) {
-                        case "ls" -> MyFile.listDirectory(splitCommand[1]);
-                        case "ls_py" -> MyFile.listPythonFiles(splitCommand[1]);
-                        case "is_dir" -> MyFile.isDirectory(splitCommand[1]);
-                        case "define" -> MyFile.define(splitCommand[1]);
-                        case "readmod" -> MyFile.printPermissions(splitCommand[1]);
+                        case "ls", "ls_py", "is_dir", "define", "readmod" -> {
+                            try {
+                                handleTwoWordCommands(splitCommand[0], splitCommand[1]);
+                            } catch (WrongPathException e) {
+                                System.out.println(e.getMessage());
+                            }
+                        }
                         default -> System.out.println("Wrong command, use help");
                     }
                 } else {
@@ -30,6 +32,16 @@ public class Shell {
                 }
             }
             System.out.print("> ");
+        }
+    }
+
+    private static void handleTwoWordCommands(String command, String argument) throws WrongPathException {
+        switch (command) {
+            case "ls" -> MyFile.listDirectory(argument);
+            case "ls_py" -> MyFile.listPythonFiles(argument);
+            case "is_dir" -> MyFile.isDirectory(argument);
+            case "define" -> MyFile.define(argument);
+            case "readmod" -> MyFile.printPermissions(argument);
         }
     }
 }

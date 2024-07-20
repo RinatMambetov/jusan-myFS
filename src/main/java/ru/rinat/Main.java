@@ -1,6 +1,6 @@
 package ru.rinat;
 
-// Todo: Add tests
+// TODO: Add tests
 
 public class Main {
     public static void main(String[] args) {
