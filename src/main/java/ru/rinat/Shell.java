@@ -18,7 +18,7 @@ public class Shell {
                     }
                 } else if (splitCommand.length == 2) {
                     switch (splitCommand[0]) {
-                        case "ls", "ls_py", "is_dir", "define", "readmod" -> {
+                        case "ls", "ls_py", "is_dir", "define", "readmod", "cat" -> {
                             try {
                                 handleTwoWordCommands(splitCommand[0], splitCommand[1]);
                             } catch (MyException e) {
@@ -53,6 +53,7 @@ public class Shell {
             case "is_dir" -> MyFile.isDirectory(argument);
             case "define" -> MyFile.define(argument);
             case "readmod" -> MyFile.printPermissions(argument);
+            case "cat" -> MyFile.printContent(argument);
         }
     }
 

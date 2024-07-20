@@ -12,7 +12,7 @@ public class MyFile {
             Arrays.stream(Objects.requireNonNull(directoryPath.listFiles()))
                     .map(elem -> elem.getName() + " ").forEach(System.out::print);
         } else {
-            throw new MyException("Wrong path");
+            throw new MyException("Error: Wrong path");
         }
         System.out.println();
     }
@@ -24,7 +24,7 @@ public class MyFile {
                     .filter(elem -> elem.getName().endsWith(".py"))
                     .map(elem -> elem.getName() + " ").forEach(System.out::print);
         } else {
-            throw new MyException("Wrong path");
+            throw new MyException("Error: Wrong path");
         }
         System.out.println();
     }
@@ -38,7 +38,7 @@ public class MyFile {
                 System.out.println("false");
             }
         } else {
-            throw new MyException("Wrong path");
+            throw new MyException("Error: Wrong path");
         }
     }
 
@@ -51,7 +51,7 @@ public class MyFile {
                 System.out.println("file");
             }
         } else {
-            throw new MyException("Wrong path");
+            throw new MyException("Error: Wrong path");
         }
     }
 
@@ -63,7 +63,7 @@ public class MyFile {
             System.out.print(directoryPath.canExecute() ? "x" : "-");
             System.out.println();
         } else {
-            throw new MyException("Wrong path");
+            throw new MyException("Error: Wrong path");
         }
     }
 
@@ -80,7 +80,19 @@ public class MyFile {
             directoryPath.setWritable(permissions.charAt(1) == 'w');
             directoryPath.setExecutable(permissions.charAt(2) == 'x');
         } else {
-            throw new MyException("Wrong path");
+            throw new MyException("Error: Wrong path");
+        }
+    }
+
+    public static void printContent(String path) throws MyException {
+        File file = new File(path);
+        if (file.exists() && file.isFile()) {
+            String content = Utils.readFile(file);
+            if (content != null) {
+                System.out.println(content);
+            }
+        } else {
+            throw new MyException("Error: Wrong path");
         }
     }
 }
