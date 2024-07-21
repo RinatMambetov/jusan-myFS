@@ -1,5 +1,6 @@
 package ru.rinat;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Shell {
@@ -7,42 +8,40 @@ public class Shell {
         MyFile.help();
         Scanner scanner = new Scanner(System.in);
         System.out.print("> ");
+
         while (true) {
             String command = scanner.nextLine();
             String[] splitCommand = command.split(" ");
             if (!splitCommand[0].isBlank()) {
-
-                if (splitCommand.length == 1) {
-                    switch (splitCommand[0]) {
-                        case "exit", "printpath", "help" -> {
-                            handleOneWordCommands(splitCommand[0]);
-                        }
-                        default -> System.out.println("Wrong command, use help");
-                    }
-                } else if (splitCommand.length == 2) {
-                    switch (splitCommand[0]) {
-                        case "ls", "ls_py", "is_dir", "define", "readmod", "cat", "append", "bc", "greplong" -> {
-                            try {
-                                handleTwoWordCommands(splitCommand[0], splitCommand[1]);
-                            } catch (MyException e) {
-                                System.out.println(e.getMessage());
+                if (Command.contains(splitCommand[0])) {
+                    Command cmd = Command.valueOf(splitCommand[0].toUpperCase());
+                    switch (cmd) {
+                        case EXIT, PRINTPATH, HELP -> handleOneWordCommands(cmd.name().toLowerCase());
+                        case LS, LS_PY, IS_DIR, DEFINE, READMOD, CAT, APPEND, BC, GREPLONG -> {
+                            if (splitCommand.length == 2) {
+                                try {
+                                    handleTwoWordCommands(cmd.name().toLowerCase(), splitCommand[1]);
+                                } catch (MyException e) {
+                                    System.out.println(e.getMessage());
+                                }
+                            } else {
+                                System.out.println("Error: Wrong command " + cmd.name().toLowerCase() + ", use help");
                             }
                         }
-                        default -> System.out.println("Wrong command, use help");
-                    }
-                } else if (splitCommand.length == 3) {
-                    switch (splitCommand[0]) {
-                        case "setmod" -> {
-                            try {
-                                handleThreeWordCommands(splitCommand[0], splitCommand[1], splitCommand[2]);
-                            } catch (MyException e) {
-                                System.out.println(e.getMessage());
+                        case SETMOD -> {
+                            if (splitCommand.length == 3) {
+                                try {
+                                    handleThreeWordCommands(cmd.name().toLowerCase(), splitCommand[1], splitCommand[2]);
+                                } catch (MyException e) {
+                                    System.out.println(e.getMessage());
+                                }
+                            } else {
+                                System.out.println("Error: Wrong command " + cmd.name().toLowerCase() + ", use help");
                             }
                         }
-                        default -> System.out.println("Wrong command, use help");
                     }
                 } else {
-                    System.out.println("Wrong command, use help");
+                    System.out.println("Error: Wrong command " + splitCommand[0] + ", use help");
                 }
             }
             System.out.print("> ");
@@ -77,6 +76,14 @@ public class Shell {
     private static void handleThreeWordCommands(String command, String argument1, String argument2) throws MyException {
         switch (command) {
             case "setmod" -> MyFile.setPermissions(argument1, argument2);
+        }
+    }
+
+    private enum Command {
+        EXIT, PRINTPATH, HELP, LS, LS_PY, IS_DIR, DEFINE, READMOD, CAT, APPEND, BC, GREPLONG, SETMOD;
+
+        public static boolean contains(String cmd) {
+            return Arrays.stream(values()).anyMatch(v -> v.name().equalsIgnoreCase(cmd));
         }
     }
 }
