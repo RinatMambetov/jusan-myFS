@@ -10,15 +10,17 @@ public class Shell {
             String command = scanner.nextLine();
             String[] splitCommand = command.split(" ");
             if (!splitCommand[0].isBlank()) {
+
                 if (splitCommand.length == 1) {
-                    if (splitCommand[0].equals("exit")) {
-                        return;
-                    } else {
-                        System.out.println("Wrong command, use help");
+                    switch (splitCommand[0]) {
+                        case "exit", "printpath" -> {
+                            handleOneWordCommands(splitCommand[0]);
+                        }
+                        default -> System.out.println("Wrong command, use help");
                     }
                 } else if (splitCommand.length == 2) {
                     switch (splitCommand[0]) {
-                        case "ls", "ls_py", "is_dir", "define", "readmod", "cat" -> {
+                        case "ls", "ls_py", "is_dir", "define", "readmod", "cat", "append" -> {
                             try {
                                 handleTwoWordCommands(splitCommand[0], splitCommand[1]);
                             } catch (MyException e) {
@@ -46,6 +48,16 @@ public class Shell {
         }
     }
 
+    private static void handleOneWordCommands(String command) {
+        switch (command) {
+            case "exit" -> {
+                System.out.println("Goodbye");
+                System.exit(0);
+            }
+            case "printpath" -> MyFile.printPath();
+        }
+    }
+
     private static void handleTwoWordCommands(String command, String argument) throws MyException {
         switch (command) {
             case "ls" -> MyFile.listDirectory(argument);
@@ -54,6 +66,7 @@ public class Shell {
             case "define" -> MyFile.define(argument);
             case "readmod" -> MyFile.printPermissions(argument);
             case "cat" -> MyFile.printContent(argument);
+            case "append" -> MyFile.appendFooter(argument);
         }
     }
 
