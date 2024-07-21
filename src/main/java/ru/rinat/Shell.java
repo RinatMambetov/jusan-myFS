@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class Shell {
     public static void run() {
+        MyFile.help();
         Scanner scanner = new Scanner(System.in);
         System.out.print("> ");
         while (true) {
@@ -13,7 +14,7 @@ public class Shell {
 
                 if (splitCommand.length == 1) {
                     switch (splitCommand[0]) {
-                        case "exit", "printpath" -> {
+                        case "exit", "printpath", "help" -> {
                             handleOneWordCommands(splitCommand[0]);
                         }
                         default -> System.out.println("Wrong command, use help");
@@ -55,6 +56,7 @@ public class Shell {
                 System.exit(0);
             }
             case "printpath" -> MyFile.printPath();
+            case "help" -> MyFile.help();
         }
     }
 
