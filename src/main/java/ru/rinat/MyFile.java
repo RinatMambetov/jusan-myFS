@@ -136,4 +136,26 @@ public class MyFile {
             throw new MyException("Error: Wrong path");
         }
     }
+
+    public static void printLongestWord(String path) throws MyException {
+        MyFile.path = path;
+        File file = new File(path);
+        if (file.exists() && file.isFile()) {
+            String content = Utils.readFile(file);
+            if (content != null) {
+                String[] words = content.split("\\s+");
+                int maxLength = 0;
+                String longestWord = "";
+                for (String word : words) {
+                    if (word.length() > maxLength) {
+                        maxLength = word.length();
+                        longestWord = word;
+                    }
+                }
+                System.out.println(longestWord);
+            }
+        } else {
+            throw new MyException("Error: Wrong path");
+        }
+    }
 }
