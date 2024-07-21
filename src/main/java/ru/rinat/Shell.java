@@ -16,7 +16,7 @@ public class Shell {
                 if (Command.contains(splitCommand[0])) {
                     Command cmd = Command.valueOf(splitCommand[0].toUpperCase());
                     switch (cmd) {
-                        case EXIT, PRINTPATH, HELP -> handleOneWordCommands(cmd.name().toLowerCase());
+                        case EXIT, HELP -> handleOneWordCommands(cmd.name().toLowerCase());
                         case LS, LS_PY, IS_DIR, DEFINE, READMOD, CAT, APPEND, BC, GREPLONG -> {
                             if (splitCommand.length == 2) {
                                 try {
@@ -54,7 +54,6 @@ public class Shell {
                 System.out.println("Goodbye");
                 System.exit(0);
             }
-            case "printpath" -> MyFile.printPath();
             case "help" -> MyFile.help();
         }
     }
@@ -80,7 +79,7 @@ public class Shell {
     }
 
     private enum Command {
-        EXIT, PRINTPATH, HELP, LS, LS_PY, IS_DIR, DEFINE, READMOD, CAT, APPEND, BC, GREPLONG, SETMOD;
+        EXIT, HELP, LS, LS_PY, IS_DIR, DEFINE, READMOD, CAT, APPEND, BC, GREPLONG, SETMOD;
 
         public static boolean contains(String cmd) {
             return Arrays.stream(values()).anyMatch(v -> v.name().equalsIgnoreCase(cmd));
