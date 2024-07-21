@@ -116,4 +116,24 @@ public class MyFile {
     public static void printPath() {
         System.out.println(path);
     }
+
+    public static void createBackup(String path) throws MyException {
+        MyFile.path = path;
+        File directoryPath = new File(path);
+        if (directoryPath.exists()) {
+            String date = Utils.getDate();
+            String backupPath = "/tmp/" + date + ".backup";
+            File backupDirectory = new File(backupPath);
+            if (!backupDirectory.exists()) {
+                backupDirectory.mkdir();
+            }
+            if (directoryPath.isDirectory()) {
+                Utils.copyDirectory(directoryPath, backupDirectory);
+            } else if (directoryPath.isFile()) {
+                Utils.copyFile(directoryPath, backupDirectory);
+            }
+        } else {
+            throw new MyException("Error: Wrong path");
+        }
+    }
 }
