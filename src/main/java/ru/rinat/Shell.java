@@ -20,7 +20,7 @@ public class Shell {
                     }
                 } else if (splitCommand.length == 2) {
                     switch (splitCommand[0]) {
-                        case "ls", "ls_py", "is_dir", "define", "readmod", "cat", "append", "bc" -> {
+                        case "ls", "ls_py", "is_dir", "define", "readmod", "cat", "append", "bc", "greplong" -> {
                             try {
                                 handleTwoWordCommands(splitCommand[0], splitCommand[1]);
                             } catch (MyException e) {
@@ -68,6 +68,7 @@ public class Shell {
             case "cat" -> MyFile.printContent(argument);
             case "append" -> MyFile.appendFooter(argument);
             case "bc" -> MyFile.createBackup(argument);
+            case "greplong" -> MyFile.printLongestWord(argument);
         }
     }
 
